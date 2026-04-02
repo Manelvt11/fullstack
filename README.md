@@ -1,1 +1,1 @@
-Jogo desenvolvido em react e node.js
+Projeto desenvolvido em react e node.js
