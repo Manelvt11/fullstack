@@ -40,6 +40,24 @@ function App() {
     }
   };
 
+  const deleteTarefa = async(id) => {
+    try {
+      const res = await fetch(`${backend}/api/tarefa/${id}`, {
+        method: "DELETE",
+      })
+
+      const data = await res.json()
+
+      if(!res.ok){
+        throw new Error(data.message)
+      }
+
+      getTarefa()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   useEffect(() => {
     getTarefa();
   }, []);
@@ -62,6 +80,7 @@ function App() {
           <TarefaList 
             tarefas={tarefas} 
             updateTarefa={updateTarefa} 
+            deleteTarefa={deleteTarefa}
           />
         </div>
 

@@ -1,4 +1,4 @@
-const TarefaList = ({ tarefas, updateTarefa }) => {
+const TarefaList = ({ tarefas, updateTarefa, deleteTarefa }) => {
   return (
     <div className="flex flex-col gap-3 mt-6">
       
@@ -38,15 +38,37 @@ const TarefaList = ({ tarefas, updateTarefa }) => {
               </span>
             </div>
 
-            {/* Botão */}
-            <button
-              onClick={() => updateTarefa(t.id)}
-              className="bg-green-500 px-3 py-1 rounded-lg text-sm text-white
-                         hover:bg-green-600 transition duration-200 
-                         active:scale-95"
-            >
-              Finalizar
-            </button>
+            {/* Botões */}
+            <div className="flex gap-2">
+              
+              {/* Finalizar */}
+              <button
+                onClick={() => updateTarefa(t.id)}
+                disabled={t.isComplete}
+                className={`px-3 py-1 rounded-lg text-sm text-white transition duration-200 active:scale-95 ${
+                  t.isComplete
+                    ? "bg-gray-500 cursor-not-allowed"
+                    : "bg-green-500 hover:bg-green-600"
+                }`}
+              >
+                ✔
+              </button>
+
+              {/* Deletar */}
+              <button
+                onClick={() => {
+                  if (confirm("Tem certeza que deseja deletar essa tarefa?")) {
+                    deleteTarefa(t.id);
+                  }
+                }}
+                className="bg-red-500 px-3 py-1 rounded-lg text-sm text-white
+                           hover:bg-red-600 transition duration-200 
+                           active:scale-95"
+              >
+                🗑
+              </button>
+
+            </div>
           </div>
         );
       })}
