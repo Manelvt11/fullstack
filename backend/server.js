@@ -11,6 +11,6 @@ app.use(cors())
 
 app.use('/api/tarefa', router)
 
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
     console.log("servidor rodando na porta", port)
 })

@@ -3,53 +3,74 @@ import Input from "./components/Input";
 import TarefaList from "./components/TarefaList";
 
 function App() {
-  const [tarefas, setTarefas] = useState([])
+  const [tarefas, setTarefas] = useState([]);
 
   const getTarefa = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/tarefa")
-      const data = await res.json()
+      const res = await fetch("http://10.220.0.13:3000/api/tarefa");
+      const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.message)
+        throw new Error(data.message);
       }
 
-      setTarefas(data)
+      setTarefas(data);
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   const updateTarefa = async (id) => {
     try {
-      const res = await fetch(`http://localhost:3000/api/tarefa/${id}`, {
-        method: 'PATCH',
-      })
+      const res = await fetch(`http://10.220.0.13:3000/api/tarefa/${id}`, {
+        method: "PATCH",
+      });
 
-      const data = await res.json()
+      const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.message)
+        throw new Error(data.message);
       }
 
-      console.log(data)
-      getTarefa()
+      getTarefa();
     } catch (error) {
-      console.error(error)
-
+      console.error(error);
     }
-  }
+  };
 
   useEffect(() => {
-    getTarefa()
-  }, [])
+    getTarefa();
+  }, []);
 
   return (
-    <div className="flex items-center w-full justify-center flex-col">
-      <Input getTarefa={getTarefa} />
-      <TarefaList tarefas={tarefas} updateTarefa={updateTarefa}/>
+    <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+      
+      <div className="w-full max-w-md bg-gray-800 rounded-2xl shadow-lg p-6">
+        
+        {/* Título */}
+        <h1 className="text-2xl font-bold text-white text-center mb-6">
+          📝 Todo List
+        </h1>
+
+        {/* Input */}
+        <Input getTarefa={getTarefa} />
+
+        {/* Lista */}
+        <div className="mt-4">
+          <TarefaList 
+            tarefas={tarefas} 
+            updateTarefa={updateTarefa} 
+          />
+        </div>
+
+        {/* Rodapé */}
+        <p className="text-gray-400 text-sm text-center mt-6">
+          {tarefas.length} tarefas no total
+        </p>
+
+      </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
