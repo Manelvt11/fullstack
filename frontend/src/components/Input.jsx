@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+const backend = import.meta.env.VITE_BACKEND;
+
 const Input = ({ getTarefa }) => {
   const [tarefa, setTarefa] = useState("");
 
@@ -7,7 +9,7 @@ const Input = ({ getTarefa }) => {
     if (!tarefa.trim()) return; // evita tarefa vazia
 
     try {
-      const res = await fetch("http://10.220.0.13:3000/api/tarefa", {
+    const res = await fetch(`${backend}/api/tarefa`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
