@@ -10,6 +10,9 @@ app.use(express.json())
 app.use(cors())
 
 app.use('/api/tarefa', router)
+app.get("/", (req, res) => {
+    res.send("aqui é o backend")
+})
 
 app.listen(port, "0.0.0.0", () => {
     console.log("servidor rodando na porta", port)
